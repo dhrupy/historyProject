@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chronicles of Europe — A Journey Through Time | Western Europe</title>
+<meta name="description" content="A regionally-themed historical amusement park exploring Western Europe across three eras: 1200–1450, 1450–1750, and 1750–1900 CE." />
+
+<!-- ============================================================
+     FONTS — distinctive heritage pairing:
+     Cinzel  -> Roman/heritage display capitals
+     EB Garamond -> classical document body text
+     ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   1. DESIGN TOKENS  (global variables / utility foundation)
+   ============================================================ */
+:root{
+  /* Core heritage palette */
+  --parchment:   #f4ead2;
+  --parchment-2: #efe1c2;
+  --ink:         #2c2114;
+  --ink-soft:    #4a3a27;
+  --gold:        #b88a2b;
+  --gold-deep:   #8a6418;
+  --gold-light:  #e3c87a;
+  --burgundy:    #7a2018;
+  --burgundy-dk: #5a1610;
+  --forest:      #2f4a36;
+  --line:        #c9b489;
+
+  /* Per-land accents (overridden on each land page wrapper) */
+  --accent:      var(--burgundy);
+  --accent-2:    var(--gold);
+
+  /* Type */
+  --display: 'Cinzel', Georgia, serif;
+  --deco:    'Cinzel Decorative', 'Cinzel', serif;
+  --body:    'EB Garamond', Georgia, serif;
+
+  /* Structure */
+  --maxw: 1120px;
+  --radius: 4px;
+  --shadow: 0 10px 30px rgba(44,33,20,.18);
+  --shadow-lg: 0 24px 60px rgba(44,33,20,.30);
+  --nav-h: 70px;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{
+  font-family:var(--body);
+  color:var(--ink);
+  background:var(--parchment);
+  font-size:18px;
+  line-height:1.65;
+  /* Layered parchment texture: subtle vignette + paper grain via gradients */
+  background-image:
+    radial-gradient(circle at 18% 12%, rgba(184,138,43,.10), transparent 38%),
+    radial-gradient(circle at 84% 78%, rgba(122,32,24,.08), transparent 42%),
+    repeating-linear-gradient(45deg, rgba(120,90,40,.020) 0 2px, transparent 2px 6px);
+  min-height:100vh;
+}
+
+/* ---- Utility classes (kept uniform across all subpages) ---- */
+.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+.eyebrow{
+  font-family:var(--display); font-weight:600; letter-spacing:.28em;
+  text-transform:uppercase; font-size:.72rem; color:var(--gold-deep);
+}
+.section-title{
+  font-family:var(--display); font-weight:900; line-height:1.05;
+  font-size:clamp(2rem, 5vw, 3.2rem); color:var(--ink);
+  margin:.2em 0 .5em;
+}
+.lead{ font-size:1.18rem; color:var(--ink-soft); max-width:62ch; }
+.rule{
+  height:3px; width:90px; margin:18px 0 30px;
+  background:linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius:3px;
+}
+.center{ text-align:center; }
+.center .rule, .center .lead{ margin-left:auto; margin-right:auto; }
+.badge{
+  display:inline-block; font-family:var(--display); font-weight:600;
+  font-size:.7rem; letter-spacing:.18em; text-transform:uppercase;
+  padding:5px 12px; border:1px solid var(--accent);
+  color:var(--accent); border-radius:100px; background:rgba(255,255,255,.35);
+}
+.grid{ display:grid; gap:24px; }
+.cols-2{ grid-template-columns:repeat(2,1fr); }
+.cols-3{ grid-template-columns:repeat(3,1fr); }
+a{ color:var(--burgundy); }
+
+/* Decorative card base used throughout */
+.card{
+  background:linear-gradient(180deg, #fff9ec, #f6ecd3);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.card::before{ /* gold top hairline */
+  content:""; position:absolute; inset:0 0 auto 0; height:3px;
+  background:linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+/* ============================================================
+   2. NAVIGATION  (persistent across all "pages")
+   ============================================================ */
+header.topbar{
+  position:sticky; top:0; z-index:1000;
+  background:linear-gradient(180deg, #3a2a18, #2c2114);
+  border-bottom:3px solid var(--gold);
+  box-shadow:0 4px 18px rgba(0,0,0,.3);
+}
+.nav{
+  height:var(--nav-h); display:flex; align-items:center;
+  justify-content:space-between; gap:18px;
+}
+.brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+.brand .crest{
+  width:40px; height:40px; flex:0 0 auto;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.4));
+}
+.brand-txt{ display:flex; flex-direction:column; line-height:1; }
+.brand-txt b{
+  font-family:var(--deco); color:var(--gold-light);
+  font-size:1.15rem; letter-spacing:.04em;
+}
+.brand-txt span{
+  font-family:var(--body); color:#cdbb96; font-size:.72rem;
+  letter-spacing:.22em; text-transform:uppercase; margin-top:3px;
+}
+.navlinks{ display:flex; align-items:center; gap:2px; flex-wrap:wrap; }
+.navlinks a{
+  font-family:var(--display); font-weight:600; font-size:.8rem;
+  letter-spacing:.05em; text-decoration:none; color:#e8dcc2;
+  padding:9px 12px; border-radius:var(--radius); position:relative;
+  transition:color .2s, background .2s;
+}
+.navlinks a:hover{ color:#fff; background:rgba(184,138,43,.18); }
+.navlinks a.active{ color:var(--gold-light); }
+.navlinks a.active::after{
+  content:""; position:absolute; left:12px; right:12px; bottom:2px; height:2px;
+  background:var(--gold); border-radius:2px;
+}
+/* Mobile menu toggle */
+.menu-btn{
+  display:none; background:none; border:1px solid var(--gold);
+  color:var(--gold-light); width:44px; height:40px; border-radius:var(--radius);
+  font-size:1.2rem; cursor:pointer;
+}
+
+/* ============================================================
+   3. PAGE / ROUTING SYSTEM  (smooth transitions)
+   ============================================================ */
+main{ min-height:60vh; }
+.page{ display:none; }
+.page.active{ display:block; animation:pageIn .5s ease both; }
+@keyframes pageIn{
+  from{ opacity:0; transform:translateY(14px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+/* staggered child reveal on active page */
+.page.active .reveal{ animation:rise .6s ease both; }
+.page.active .reveal:nth-child(2){ animation-delay:.06s; }
+.page.active .reveal:nth-child(3){ animation-delay:.12s; }
+.page.active .reveal:nth-child(4){ animation-delay:.18s; }
+@keyframes rise{ from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);} }
+
+section.block{ padding:64px 0; }
+section.block.tight{ padding:42px 0; }
+
+/* ============================================================
+   4. HERO (home)
+   ============================================================ */
+.hero{
+  position:relative; overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(184,138,43,.30), transparent 55%),
+    linear-gradient(180deg, #2c2114 0%, #4a3320 60%, #5a1610 130%);
+  color:var(--parchment);
+  padding:90px 0 110px; text-align:center;
+}
+.hero::after{ /* ornamental ground line */
+  content:""; position:absolute; left:0; right:0; bottom:0; height:6px;
+  background:linear-gradient(90deg, var(--burgundy), var(--gold), #14606b, var(--gold), var(--burgundy));
+}
+.hero .kicker{
+  font-family:var(--display); letter-spacing:.4em; text-transform:uppercase;
+  font-size:.8rem; color:var(--gold-light); margin-bottom:18px;
+}
+.hero h1{
+  font-family:var(--deco); font-weight:900; line-height:1.02;
+  font-size:clamp(2.6rem, 7vw, 5.4rem); color:#fbf2dd;
+  text-shadow:0 4px 18px rgba(0,0,0,.5); margin-bottom:10px;
+}
+.hero .sub{
+  font-family:var(--display); font-size:clamp(1rem,2.4vw,1.5rem);
+  color:var(--gold-light); letter-spacing:.06em; margin-bottom:26px;
+}
+.hero p.tag{ max-width:60ch; margin:0 auto 34px; color:#e6d8ba; font-size:1.15rem; }
+.cta-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+.btn{
+  font-family:var(--display); font-weight:600; letter-spacing:.06em;
+  text-decoration:none; padding:13px 26px; border-radius:var(--radius);
+  font-size:.92rem; cursor:pointer; border:2px solid transparent;
+  transition:transform .15s, box-shadow .2s, background .2s; display:inline-block;
+}
+.btn-gold{ background:linear-gradient(180deg,var(--gold-light),var(--gold)); color:#3a2a10; box-shadow:0 6px 16px rgba(184,138,43,.4); }
+.btn-gold:hover{ transform:translateY(-2px); box-shadow:0 10px 22px rgba(184,138,43,.55); }
+.btn-ghost{ border-color:var(--gold-light); color:var(--gold-light); }
+.btn-ghost:hover{ background:rgba(227,200,122,.14); transform:translateY(-2px); }
+
+/* group / meta strip */
+.meta-strip{
+  background:#241a0f; color:#cbb88f; text-align:center;
+  font-family:var(--display); font-size:.78rem; letter-spacing:.12em;
+  padding:12px 16px; text-transform:uppercase;
+}
+.meta-strip b{ color:var(--gold-light); }
+
+/* ============================================================
+   5. TIMELINE (eras)
+   ============================================================ */
+.timeline{ display:grid; gap:0; position:relative; }
+.timeline::before{
+  content:""; position:absolute; left:50%; top:0; bottom:0; width:3px;
+  background:linear-gradient(180deg,var(--gold),var(--line)); transform:translateX(-50%);
+}
+.tl-item{ position:relative; width:50%; padding:18px 40px; }
+.tl-item:nth-child(odd){ left:0; text-align:right; }
+.tl-item:nth-child(even){ left:50%; }
+.tl-dot{
+  position:absolute; top:30px; width:18px; height:18px; border-radius:50%;
+  background:var(--gold); border:3px solid var(--parchment); box-shadow:0 0 0 2px var(--gold);
+}
+.tl-item:nth-child(odd) .tl-dot{ right:-9px; }
+.tl-item:nth-child(even) .tl-dot{ left:-9px; }
+.tl-card{ background:#fff9ec; border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow); display:inline-block; text-align:left; }
+.tl-era{ font-family:var(--display); font-weight:700; color:var(--gold-deep); font-size:.85rem; letter-spacing:.08em; }
+.tl-card h4{ font-family:var(--display); font-size:1.2rem; margin:4px 0 6px; }
+
+/* ============================================================
+   6. LAND CARDS / SHARED CONTENT BLOCKS
+   ============================================================ */
+.land-grid{ grid-template-columns:repeat(3,1fr); }
+.land-card{ text-decoration:none; color:inherit; display:flex; flex-direction:column; transition:transform .2s, box-shadow .2s; }
+.land-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-lg); }
+.land-art{ height:150px; display:flex; align-items:center; justify-content:center; position:relative; }
+.land-art svg{ width:84px; height:84px; }
+.land-body{ padding:20px 22px 24px; }
+.land-body h3{ font-family:var(--display); font-size:1.4rem; margin-bottom:4px; }
+.land-body .era{ font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-deep); font-family:var(--display); font-weight:600; }
+.land-body p{ margin-top:10px; color:var(--ink-soft); font-size:1rem; }
+.land-link{ margin-top:14px; font-family:var(--display); font-weight:600; font-size:.82rem; color:var(--accent); letter-spacing:.04em; }
+
+/* Land page banner */
+.land-banner{ color:#fbf2dd; padding:70px 0 56px; position:relative; overflow:hidden; }
+.land-banner::after{ content:""; position:absolute; inset:auto 0 0 0; height:5px; background:linear-gradient(90deg,var(--accent),var(--accent-2)); }
+.land-banner .badge{ background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.5); color:#fbf2dd; }
+.land-banner h2{ font-family:var(--deco); font-size:clamp(2.2rem,6vw,4rem); margin:14px 0 6px; }
+.land-banner .era-big{ font-family:var(--display); letter-spacing:.16em; color:var(--gold-light); text-transform:uppercase; font-size:.95rem; }
+
+/* ============================================================
+   7. ACCORDION (attractions, food, souvenirs, research)
+   ============================================================ */
+.accordion{ border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); background:#fff9ec; }
+.acc-item + .acc-item{ border-top:1px solid var(--line); }
+.acc-head{
+  width:100%; text-align:left; background:none; border:none; cursor:pointer;
+  padding:20px 22px; display:flex; align-items:center; gap:16px;
+  font-family:var(--display); font-weight:600; font-size:1.12rem; color:var(--ink);
+  transition:background .2s;
+}
+.acc-head:hover{ background:rgba(184,138,43,.08); }
+.acc-num{
+  flex:0 0 auto; width:34px; height:34px; border-radius:50%;
+  display:grid; place-items:center; font-size:.85rem; color:#fff;
+  background:linear-gradient(180deg,var(--accent),var(--accent-2));
+}
+.acc-tag{ margin-left:auto; font-family:var(--body); font-size:.78rem; color:var(--gold-deep); font-style:italic; }
+.acc-chev{ flex:0 0 auto; transition:transform .3s; color:var(--accent); font-size:1.1rem; }
+.acc-item.open .acc-chev{ transform:rotate(180deg); }
+.acc-panel{ max-height:0; overflow:hidden; transition:max-height .4s ease; }
+.acc-item.open .acc-panel{ max-height:600px; }
+.acc-inner{ padding:0 22px 22px 72px; color:var(--ink-soft); }
+.acc-inner .why{
+  margin-top:12px; padding:12px 16px; border-left:3px solid var(--accent);
+  background:rgba(184,138,43,.10); border-radius:0 var(--radius) var(--radius) 0;
+}
+.acc-inner .why b{ font-family:var(--display); color:var(--gold-deep); font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:4px; }
+
+/* generic info cards grid (food, souvenirs) */
+.info-card{ padding:22px; }
+.info-card h4{ font-family:var(--display); font-size:1.18rem; margin-bottom:6px; display:flex; align-items:center; gap:10px; }
+.info-card .icon{ width:30px; height:30px; flex:0 0 auto; color:var(--accent); }
+.info-card .hist{ margin-top:10px; font-size:.95rem; color:var(--ink-soft); }
+.chip{ display:inline-block; font-size:.72rem; font-family:var(--display); letter-spacing:.08em; text-transform:uppercase; color:var(--gold-deep); background:rgba(184,138,43,.14); border:1px solid var(--line); padding:3px 9px; border-radius:100px; margin:2px 4px 2px 0; }
+
+/* ============================================================
+   8. INTERACTIVE PARK MAP
+   ============================================================ */
+.map-frame{ background:linear-gradient(180deg,#f0e3c4,#e7d6ad); border:3px solid var(--gold-deep); border-radius:8px; box-shadow:var(--shadow-lg); padding:10px; position:relative; }
+.map-frame svg{ width:100%; height:auto; display:block; border-radius:4px; }
+.map-zone{ cursor:pointer; transition:opacity .2s, filter .2s; }
+.map-zone:hover{ filter:brightness(1.08); }
+.map-zone:hover .zone-ring{ opacity:1; }
+.zone-ring{ opacity:0; transition:opacity .2s; }
+.map-label{ font-family:var(--display); font-weight:700; fill:#fff; font-size:15px; pointer-events:none; text-anchor:middle; }
+.map-sub{ font-family:var(--body); fill:#fff; font-size:10px; pointer-events:none; text-anchor:middle; opacity:.9; }
+.route{ stroke-dasharray:6 7; stroke-linecap:round; animation:dash 22s linear infinite; }
+@keyframes dash{ to{ stroke-dashoffset:-260; } }
+.map-legend{ display:flex; gap:18px; flex-wrap:wrap; justify-content:center; margin-top:20px; }
+.map-legend span{ display:flex; align-items:center; gap:8px; font-size:.85rem; font-family:var(--display); }
+.swatch{ width:16px; height:16px; border-radius:3px; border:1px solid rgba(0,0,0,.2); }
+
+/* ============================================================
+   9. MASCOTS
+   ============================================================ */
+.mascot-grid{ grid-template-columns:repeat(2,1fr); }
+.mascot-card{ padding:26px; cursor:pointer; transition:transform .2s, box-shadow .2s; }
+.mascot-card:hover{ transform:translateY(-5px); box-shadow:var(--shadow-lg); }
+.mascot-top{ display:flex; align-items:center; gap:20px; }
+.mascot-emblem{ width:90px; height:90px; flex:0 0 auto; border-radius:50%; display:grid; place-items:center; background:radial-gradient(circle at 35% 30%, #fff8e6, #ecdab0); border:2px solid var(--accent); box-shadow:inset 0 0 14px rgba(184,138,43,.3); }
+.mascot-emblem svg{ width:54px; height:54px; }
+.mascot-card h4{ font-family:var(--display); font-size:1.4rem; }
+.mascot-card .role{ font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-deep); font-family:var(--display); font-weight:600; }
+.mascot-card p{ margin-top:14px; color:var(--ink-soft); font-size:.98rem; }
+
+/* ============================================================
+   10. MODAL
+   ============================================================ */
+.modal-overlay{ position:fixed; inset:0; background:rgba(28,20,10,.72); backdrop-filter:blur(3px); display:none; align-items:center; justify-content:center; z-index:2000; padding:20px; }
+.modal-overlay.open{ display:flex; animation:fadeIn .25s ease; }
+@keyframes fadeIn{ from{opacity:0;} to{opacity:1;} }
+.modal{ background:linear-gradient(180deg,#fff9ec,#f4e8cf); border:2px solid var(--gold); border-radius:8px; max-width:520px; width:100%; box-shadow:var(--shadow-lg); position:relative; animation:pop .3s ease; overflow:hidden; }
+@keyframes pop{ from{opacity:0; transform:scale(.92) translateY(10px);} to{opacity:1; transform:scale(1) translateY(0);} }
+.modal::before{ content:""; position:absolute; inset:0 0 auto 0; height:5px; background:linear-gradient(90deg,var(--accent),var(--accent-2)); }
+.modal-head{ display:flex; align-items:center; gap:18px; padding:26px 26px 14px; }
+.modal-head .mascot-emblem{ width:76px; height:76px; }
+.modal-head .mascot-emblem svg{ width:44px; height:44px; }
+.modal-head h3{ font-family:var(--display); font-size:1.5rem; }
+.modal-head .role{ font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-deep); font-family:var(--display); font-weight:600; }
+.modal-body{ padding:0 26px 26px; color:var(--ink-soft); }
+.modal-close{ position:absolute; top:12px; right:14px; background:none; border:none; font-size:1.6rem; color:var(--ink-soft); cursor:pointer; line-height:1; }
+.modal-close:hover{ color:var(--burgundy); }
+
+/* ============================================================
+   11. TABLES / RESEARCH
+   ============================================================ */
+.compare{ width:100%; border-collapse:collapse; background:#fff9ec; border:1px solid var(--line); box-shadow:var(--shadow); border-radius:var(--radius); overflow:hidden; }
+.compare th, .compare td{ padding:14px 16px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+.compare th{ font-family:var(--display); background:rgba(184,138,43,.16); font-size:.85rem; letter-spacing:.04em; }
+.compare tr:last-child td{ border-bottom:none; }
+.compare td b{ color:var(--gold-deep); }
+
+.src-list{ list-style:none; }
+.src-list li{ background:#fff9ec; border:1px solid var(--line); border-left:4px solid var(--accent); padding:12px 16px; border-radius:var(--radius); margin-bottom:10px; word-break:break-word; }
+.src-list li span{ font-family:var(--display); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-deep); display:block; margin-bottom:2px; }
+
+/* ============================================================
+   12. FOOTER
+   ============================================================ */
+footer.foot{ background:linear-gradient(180deg,#2c2114,#1d150b); color:#cbb88f; padding:54px 0 26px; margin-top:40px; border-top:3px solid var(--gold); }
+.foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:34px; }
+.foot h5{ font-family:var(--display); color:var(--gold-light); letter-spacing:.1em; text-transform:uppercase; font-size:.8rem; margin-bottom:14px; }
+.foot a{ color:#d8c7a1; text-decoration:none; display:block; padding:4px 0; font-size:.92rem; }
+.foot a:hover{ color:#fff; }
+.foot .brand-txt b{ font-size:1.3rem; }
+.foot p{ font-size:.92rem; line-height:1.6; }
+.foot-bottom{ text-align:center; margin-top:34px; padding-top:20px; border-top:1px solid rgba(203,184,143,.25); font-size:.8rem; color:#9c8a68; letter-spacing:.04em; }
+
+/* ============================================================
+   13. RESPONSIVE
+   ============================================================ */
+@media (max-width:900px){
+  .cols-3, .land-grid, .foot-grid{ grid-template-columns:1fr 1fr; }
+  .mascot-grid{ grid-template-columns:1fr; }
+}
+@media (max-width:760px){
+  body{ font-size:17px; }
+  .menu-btn{ display:block; }
+  .navlinks{
+    position:absolute; top:var(--nav-h); left:0; right:0;
+    background:#2c2114; flex-direction:column; align-items:stretch;
+    padding:8px 14px 16px; gap:0; max-height:0; overflow:hidden;
+    transition:max-height .35s ease; border-bottom:3px solid var(--gold);
+  }
+  .navlinks.open{ max-height:560px; }
+  .navlinks a{ padding:13px 8px; border-bottom:1px solid rgba(184,138,43,.18); }
+  .navlinks a.active::after{ display:none; }
+  .cols-2, .cols-3, .land-grid, .foot-grid{ grid-template-columns:1fr; }
+  /* timeline becomes single column */
+  .timeline::before{ left:18px; }
+  .tl-item{ width:100%; left:0 !important; text-align:left !important; padding:14px 0 14px 46px; }
+  .tl-item:nth-child(odd) .tl-dot, .tl-item:nth-child(even) .tl-dot{ left:9px; right:auto; }
+  .acc-inner{ padding-left:22px; }
+  section.block{ padding:46px 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION BAR  (persistent)
+     ============================================================ -->
+<header class="topbar">
+  <div class="wrap nav">
+    <a class="brand" href="#/home">
+      <!-- Crown crest (overall park motif) -->
+      <svg class="crest" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M8 44h48l-3 10H11z" fill="#b88a2b" stroke="#8a6418" stroke-width="2"/>
+        <path d="M8 44 5 22l13 11 14-22 14 22 13-11-3 22z" fill="#e3c87a" stroke="#8a6418" stroke-width="2"/>
+        <circle cx="5" cy="20" r="4" fill="#7a2018"/><circle cx="59" cy="20" r="4" fill="#7a2018"/>
+        <circle cx="32" cy="8" r="4" fill="#7a2018"/>
+        <circle cx="18" cy="46" r="2.5" fill="#5a1610"/><circle cx="32" cy="46" r="2.5" fill="#5a1610"/><circle cx="46" cy="46" r="2.5" fill="#5a1610"/>
+      </svg>
+      <span class="brand-txt">
+        <b>Chronicles of Europe</b>
+        <span>A Journey Through Time</span>
+      </span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">&#9776;</button>
+    <nav class="navlinks" id="navlinks">
+      <a href="#/home"           data-route="home">Overview</a>
+      <a href="#/map"            data-route="map">Park Map</a>
+      <a href="#/castleonia"     data-route="castleonia">Castleonia</a>
+      <a href="#/exploration"    data-route="exploration">Exploration Kingdom</a>
+      <a href="#/factoryland"    data-route="factoryland">FactoryLand</a>
+      <a href="#/transportation" data-route="transportation">Transport</a>
+      <a href="#/food"           data-route="food">Food Court</a>
+      <a href="#/giftshop"       data-route="giftshop">Gift Shop</a>
+      <a href="#/mascots"        data-route="mascots">Mascots</a>
+      <a href="#/history"        data-route="history">Context</a>
+      <a href="#/sources"        data-route="sources">Sources</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============================================================
+     PAGE: HOME / OVERVIEW
+     ============================================================ -->
+<section class="page" data-page="home">
+  <div class="hero">
+    <div class="wrap">
+      <div class="kicker reveal">AP World History &middot; Region: Western Europe</div>
+      <h1 class="reveal">Chronicles of Europe</h1>
+      <div class="sub reveal">A Journey Through Time &mdash; 1200 to 1900 CE</div>
+      <p class="tag reveal">Three lands. Seven centuries. One kingdom of memory. Travel the medieval manor, sail the age of exploration, and ride the engines of industry &mdash; all in a single Western European theme park where every attraction is rooted in real history.</p>
+      <div class="cta-row reveal">
+        <a class="btn btn-gold" href="#/map">Explore the Park Map</a>
+        <a class="btn btn-ghost" href="#/castleonia">Enter the Lands</a>
+      </div>
+    </div>
+  </div>
+  <div class="meta-strip">Created by <b>Sai Bhimavarapu</b>, <b>Sriram Balguri</b> &amp; <b>Dhrupad Kaki</b> &nbsp;|&nbsp; Block 5</div>
+
+  <!-- Overview narrative -->
+  <section class="block">
+    <div class="wrap">
+      <div class="eyebrow reveal">The Overview</div>
+      <h2 class="section-title reveal">Why Western Europe?</h2>
+      <div class="rule reveal"></div>
+      <p class="lead reveal">Chronicles of Europe focuses on <b>Western Europe</b>, a region whose institutions, voyages, and machines reshaped the wider world. Each of our three Lands spotlights a single era so guests can <i>feel</i> how power, labor, and movement transformed from the manor to the factory floor.</p>
+      <div class="grid cols-3" style="margin-top:34px;">
+        <div class="card info-card reveal">
+          <h4>Power &amp; Structure</h4>
+          <p class="hist">From the Catholic Church and feudal lords of the medieval manor, to the mercantilist monarchies of the age of sail, to the industrial empires of the 1800s &mdash; authority in Western Europe was constantly reorganized. Chronicles of Europe builds its Lands around these shifting structures.</p>
+        </div>
+        <div class="card info-card reveal">
+          <h4>Movement &amp; Exchange</h4>
+          <p class="hist">Goods, beliefs, people, and diseases never stopped moving: Hanseatic trade routes, the Columbian Exchange, and the migrations of the Industrial Revolution. Our transportation network turns that history of movement into how guests travel the park.</p>
+        </div>
+        <div class="card info-card reveal">
+          <h4>Work &amp; Daily Life</h4>
+          <p class="hist">Serfs and freemen gave way to artisans, then to factory laborers. Our attractions, food, and souvenirs are designed to show what everyday life actually looked like for the people who lived through each era.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline of the three lands -->
+  <section class="block tight" style="background:rgba(184,138,43,.07); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="center">
+        <div class="eyebrow reveal">The Three Eras</div>
+        <h2 class="section-title reveal">One Park, Three Centuries Apart</h2>
+        <div class="rule reveal"></div>
+      </div>
+      <div class="timeline" style="margin-top:20px;">
+        <div class="tl-item">
+          <span class="tl-dot"></span>
+          <div class="tl-card">
+            <div class="tl-era">1200 &ndash; 1450 CE</div>
+            <h4>Castleonia</h4>
+            <p>Feudalism, the manorial system, the Catholic Church, and the Black Death.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-dot"></span>
+          <div class="tl-card">
+            <div class="tl-era">1450 &ndash; 1750 CE</div>
+            <h4>Exploration Kingdom</h4>
+            <p>Transoceanic connections, the Columbian Exchange, and mercantilist empires.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-dot"></span>
+          <div class="tl-card">
+            <div class="tl-era">1750 &ndash; 1900 CE</div>
+            <h4>FactoryLand</h4>
+            <p>The Industrial Revolution, steam power, and the new world of factory labor.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Land cards -->
+  <section class="block">
+    <div class="wrap">
+      <div class="center">
+        <div class="eyebrow reveal">The Lands</div>
+        <h2 class="section-title reveal">Choose Your Era</h2>
+        <div class="rule reveal"></div>
+      </div>
+      <div class="grid land-grid" style="margin-top:20px;" id="homeLands"></div>
+    </div>
+  </section>
+</section>
+
+<!-- ============================================================
+     PAGE: PARK MAP
+     ============================================================ -->
+<section class="page" data-page="map">
+  <div class="land-banner" style="background:radial-gradient(ellipse at 50% -20%, rgba(184,138,43,.3), transparent 60%), linear-gradient(135deg,#2c2114,#4a3320);">
+    <div class="wrap">
+      <span class="badge reveal">The Visual</span>
+      <h2 class="reveal">Park Map</h2>
+      <div class="era-big reveal">Every Land &middot; Every Route</div>
+    </div>
+  </div>
+  <section class="block">
+    <div class="wrap">
+      <p class="lead reveal" style="margin-bottom:28px;">A bird's-eye view of Chronicles of Europe. The Royal Plaza sits at the center, with the three Lands arranged around it. The dashed lines are the historically accurate transport routes that carry guests between eras &mdash; carriage, caravel, and locomotive. <b>Tap any Land</b> to enter it.</p>
+      <div class="map-frame reveal">
+        <svg viewBox="0 0 800 500" role="img" aria-label="Interactive map of Chronicles of Europe">
+          <!-- ground -->
+          <rect x="0" y="0" width="800" height="500" fill="#e7d6ad"/>
+          <!-- decorative compass rose -->
+          <g transform="translate(720,70)" opacity=".5">
+            <circle r="26" fill="none" stroke="#8a6418" stroke-width="1.5"/>
+            <path d="M0,-24 L5,0 L0,24 L-5,0 Z" fill="#7a2018"/>
+            <path d="M-24,0 L0,-5 L24,0 L0,5 Z" fill="#b88a2b"/>
+            <text y="-30" text-anchor="middle" font-family="Cinzel" font-size="11" fill="#8a6418">N</text>
+          </g>
+
+          <!-- ROUTES (drawn under zones) -->
+          <!-- carriage: castleonia <-> plaza -->
+          <path class="route" d="M205,165 Q330,250 365,250" fill="none" stroke="#7a2018" stroke-width="4"/>
+          <!-- caravel: exploration <-> plaza -->
+          <path class="route" d="M595,165 Q470,250 435,250" fill="none" stroke="#14606b" stroke-width="4"/>
+          <!-- locomotive: factoryland <-> plaza -->
+          <path class="route" d="M400,355 L400,300" fill="none" stroke="#6b4f2b" stroke-width="4"/>
+
+          <!-- ROYAL PLAZA (center hub) -->
+          <g>
+            <circle cx="400" cy="250" r="48" fill="#b88a2b" stroke="#8a6418" stroke-width="3"/>
+            <circle cx="400" cy="250" r="36" fill="#e3c87a"/>
+            <path d="M378 256h44l-3 9H381z M378 256l-3-16 11 8 14-16 14 16 11-8-3 16z" fill="#7a2018"/>
+            <text class="map-sub" x="400" y="320" fill="#5a4327">ROYAL PLAZA</text>
+          </g>
+
+          <!-- CASTLEONIA (top-left) -->
+          <a href="#/castleonia">
+            <g class="map-zone">
+              <circle class="zone-ring" cx="150" cy="120" r="86" fill="none" stroke="#7a2018" stroke-width="3"/>
+              <circle cx="150" cy="120" r="74" fill="#7a2018"/>
+              <circle cx="150" cy="120" r="74" fill="url(#stoneTex)" opacity=".25"/>
+              <!-- castle icon -->
+              <g transform="translate(150,118)" fill="#f4ead2">
+                <rect x="-30" y="-6" width="60" height="30"/>
+                <rect x="-30" y="-22" width="10" height="16"/><rect x="-14" y="-22" width="10" height="16"/><rect x="2" y="-22" width="10" height="16"/><rect x="18" y="-22" width="10" height="16"/>
+                <rect x="-6" y="2" width="12" height="22" fill="#5a1610"/>
+              </g>
+              <text class="map-label" x="150" y="150">CASTLEONIA</text>
+              <text class="map-sub" x="150" y="166">1200&ndash;1450 CE</text>
+            </g>
+          </a>
+
+          <!-- EXPLORATION KINGDOM (top-right) -->
+          <a href="#/exploration">
+            <g class="map-zone">
+              <circle class="zone-ring" cx="650" cy="120" r="86" fill="none" stroke="#14606b" stroke-width="3"/>
+              <circle cx="650" cy="120" r="74" fill="#14606b"/>
+              <!-- ship icon -->
+              <g transform="translate(650,118)" fill="#f4ead2">
+                <path d="M-32 6 L32 6 L24 22 L-24 22 Z"/>
+                <rect x="-2" y="-30" width="4" height="36"/>
+                <path d="M2 -28 L26 -8 L2 -8 Z"/>
+                <path d="M-2 -22 L-22 -6 L-2 -6 Z"/>
+              </g>
+              <text class="map-label" x="650" y="150">EXPLORATION KINGDOM</text>
+              <text class="map-sub" x="650" y="166">1450&ndash;1750 CE</text>
+            </g>
+          </a>
+
+          <!-- FACTORYLAND (bottom) -->
+          <a href="#/factoryland">
+            <g class="map-zone">
+              <circle class="zone-ring" cx="400" cy="420" r="86" fill="none" stroke="#6b4f2b" stroke-width="3"/>
+              <circle cx="400" cy="420" r="74" fill="#4a3a27"/>
+              <!-- factory icon -->
+              <g transform="translate(400,418)" fill="#f4ead2">
+                <rect x="-34" y="0" width="68" height="22"/>
+                <path d="M-34 0 L-34 -14 L-20 -6 L-20 -14 L-6 -6 L-6 -14 L8 -6 L8 0 Z"/>
+                <rect x="16" y="-30" width="9" height="30"/>
+                <circle cx="20.5" cy="-34" r="5" opacity=".6"/>
+              </g>
+              <text class="map-label" x="400" y="452">FACTORYLAND</text>
+              <text class="map-sub" x="400" y="468">1750&ndash;1900 CE</text>
+            </g>
+          </a>
+
+          <!-- subtle stone texture pattern -->
+          <defs>
+            <pattern id="stoneTex" width="14" height="14" patternUnits="userSpaceOnUse">
+              <rect width="14" height="14" fill="none"/><path d="M0 7h14M7 0v14" stroke="#000" stroke-width="1"/>
+            </pattern>
+          </defs>
+        </svg>
+      </div>
+      <div class="map-legend reveal">
+        <span><span class="swatch" style="background:#7a2018"></span>Castleonia &middot; Horse-drawn Carriage</span>
+        <span><span class="swatch" style="background:#14606b"></span>Exploration Kingdom &middot; Caravel &amp; Carrack</span>
+        <span><span class="swatch" style="background:#4a3a27"></span>FactoryLand &middot; Steam Locomotive</span>
+      </div>
+      <p class="center" style="margin-top:24px; color:var(--ink-soft); font-style:italic;">Built as a digital model &mdash; the medium for our final product is this interactive website.</p>
+    </div>
+  </section>
+</section>
+
+<!-- ============================================================
+     PAGE: CASTLEONIA  (Land 1)
+     ============================================================ -->
+<section class="page" data-page="castleonia" style="--accent:#7a2018; --accent-2:#b88a2b;">
+  <div class="land-banner" style="background:linear-gradient(135deg,#3a1310,#7a2018 70%,#9c3a2a);">
+    <div class="wrap">
+      <span class="badge reveal">Land One</span>
+      <h2 class="reveal">Castleonia</h2>
+      <div class="era-big reveal">1200 &ndash; 1450 CE &middot; The Medieval Kingdom</div>
+    </div>
+  </div>
+
+  <section class="block">
+    <div class="wrap grid cols-2" style="align-items:start;">
+      <div class="reveal">
+        <div class="eyebrow">Why This Era</div>
+        <h3 class="section-title" style="font-size:2rem;">The Age of Feudalism &amp; Faith</h3>
+        <div class="rule"></div>
+        <p>We chose 1200&ndash;1450 CE because of the powerful influence that <b>feudalism</b> and the <b>Catholic Church</b> had on Western Europe. This period was crucial in building the political and social structures of the region, while major events such as the <b>Black Death</b> reshaped society. Power was decentralized: the Pope held religious and political authority across Europe, while feudal lords and nobility ruled small parcels of land called manors.</p>
+      </div>
+      <div class="card info-card reveal">
+        <div class="eyebrow" style="color:var(--accent);">The Vibe</div>
+        <h4 style="margin-top:6px;">A Medieval Kingdom</h4>
+        <p class="hist">Castleonia recreates a medieval European kingdom of stone castles, towering cathedrals, and bustling village markets. At its heart is a working <b>manor</b> that demonstrates the manorial system &mdash; farmland, a church, serf homes, and a castle for the ruler. The decentralized, feudal society of 1200&ndash;1450 CE is reflected in both the architecture and the everyday life on display.</p>
+        <div style="margin-top:12px;">
+          <span class="chip">Stone Castles</span><span class="chip">Cathedrals</span><span class="chip">Village Markets</span><span class="chip">The Manor</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tight">
+    <div class="wrap">
+      <div class="eyebrow reveal">The Attractions</div>
+      <h3 class="section-title reveal" style="font-size:2rem;">Rides &amp; Shows</h3>
+      <div class="rule reveal"></div>
+      <div class="accordion reveal" data-accordion>
+        <div class="acc-item">
+          <button class="acc-head"><span class="acc-num">1</span> Black Plague Escape <span class="acc-tag">Thrill ride</span> <span class="acc-chev">&#9662;</span></button>
+          <div class="acc-panel"><div class="acc-inner">
+            <p>Visitors are dropped into a medieval town with one objective: run and escape before the Black Plague &mdash; spreading visibly through the town walls &mdash; catches up to them.</p>
+            <div class="why"><b>Historical Connection</b>The Black Death (peaking c. 1347&ndash;1351) was one of the defining catastrophes of this era, killing an enormous share of Western Europe's population and accelerating the decline of the feudal order. The ride turns that history of contagion and flight into an immersive experience.</div>
+          </div></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-head"><span class="acc-num">2</span> Castle Battle Show <span class="acc-tag">Live show</span> <span class="acc-chev">&#9662;</span></button>
+          <div class="acc-panel"><div class="acc-inner">
+            <p>Actors portray medieval battles using catapults, shields, and staged sword fights between knights.</p>
+            <div class="why"><b>Historical Connection</b>Warfare between feudal lords, sieges, and the culture of knighthood were central to medieval Western Europe. The show dramatizes the weapons and combat that defined power struggles of the period.</div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tight">
+    <div class="wrap grid cols-2">
+      <div class="card info-card reveal">
+        <h4>Getting Around</h4>
+        <p class="hist">Beyond walking paths, guests move through Castleonia by <b>horse-drawn carriage</b> &mdash; a genuine mode of medieval transport &mdash; or by pushing <b>merchant carts</b>, a nod to the many traders who moved goods through medieval towns and markets.</p>
+        <a class="land-link" href="#/transportation">See all transport routes &rarr;</a>
+      </div>
+      <div class="card info-card reveal">
+        <h4>Land Mascot &mdash; Sir Arthur the Knight</h4>
+        <p class="hist">A friendly knight in shining armor carrying a sword and shield. Knights were among the most iconic figures of medieval Western Europe, embodying <b>feudalism, loyalty, and chivalry</b> &mdash; making Sir Arthur a perfect fit for Castleonia.</p>
+        <a class="land-link" href="#/mascots">Meet all the mascots &rarr;</a>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ============================================================
+     PAGE: EXPLORATION KINGDOM  (Land 2)
+     ============================================================ -->
+<section class="page" data-page="exploration" style="--accent:#14606b; --accent-2:#3f9aa3;">
+  <div class="land-banner" style="background:linear-gradient(135deg,#0c3a40,#14606b 70%,#2a8f99);">
+    <div class="wrap">
+      <span class="badge reveal">Land Two</span>
+      <h2 class="reveal">Exploration Kingdom</h2>
+      <div class="era-big reveal">1450 &ndash; 1750 CE &middot; The Age of Sail</div>
+    </div>
+  </div>
+
+  <section class="block">
+    <div class="wrap grid cols-2" style="align-items:start;">
+      <div class="reveal">
+        <div class="eyebrow">Why This Era</div>
+        <h3 class="section-title" style="font-size:2rem;">Transoceanic Connections</h3>
+        <div class="rule"></div>
+        <p>We chose 1450&ndash;1750 CE because Western Europe dominated the era of <b>transoceanic connections</b>. The <b>Columbian Exchange</b>, the Age of Exploration, mercantilist empires, and breakthroughs in maritime technology were all led by Western European powers &mdash; the Spanish Empire, the Kingdoms of France and England, and the Dutch Republic among them.</p>
+      </div>
+      <div class="card info-card reveal">
+        <div class="eyebrow" style="color:var(--accent);">The Vibe</div>
+        <h4 style="margin-top:6px;">An Ocean of Trade</h4>
+        <p class="hist">Exploration Kingdom is built around a maritime, transoceanic theme &mdash; an ocean of trade dotted with ships and new inventions. Inspired by a world-showcase pavilion but reimagined with water at its center, the Land turns the importance of sea trade into its defining atmosphere.</p>
+        <div style="margin-top:12px;">
+          <span class="chip">Ocean Theme</span><span class="chip">Tall Ships</span><span class="chip">Maritime Tech</span><span class="chip">Global Trade</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tight">
+    <div class="wrap">
+      <div class="eyebrow reveal">The Attractions</div>
+      <h3 class="section-title reveal" style="font-size:2rem;">Rides &amp; Shows</h3>
+      <div class="rule reveal"></div>
+      <div class="accordion reveal" data-accordion>
+        <div class="acc-item">
+          <button class="acc-head"><span class="acc-num">1</span> Crossing the Atlantic <span class="acc-tag">Water ride</span> <span class="acc-chev">&#9662;</span></button>
+          <div class="acc-panel"><div class="acc-inner">
+            <p>A water-heavy voyage that carries riders through the experience of crossing the Atlantic, sailing past period ships and finally arriving in the Americas.</p>
+            <div class="why"><b>Historical Connection</b>Recreates the transatlantic voyages that defined the Age of Exploration, when European fleets first established sustained links between the Old World and the New.</div>
+          </div></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-head"><span class="acc-num">2</span> Imports &amp; Exports Show <span class="acc-tag">Live show</span> <span class="acc-chev">&#9662;</span></button>
+          <div class="acc-panel"><div class="acc-inner">
+            <p>Guests watch how the great European empires traded to gain power and wealth, illustrating the logic of <b>mercantilism</b>.</p>
+            <div class="why"><b>Historical Connection</b>Mercantilist policy &mdash; maximizing exports, controlling colonies, and accumulating wealth &mdash; drove imperial competition across this era. The show makes that economic strategy visible.</div>
+          </div></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-head"><span class="acc-num">3</span> The Art of Exchange <span class="acc-tag">Simulation ride</span> <span class="acc-chev">&#9662;</span></button>
+          <div class="acc-panel"><div class="acc-inner">
+            <p>A simulation-based ride that carries guests through the Columbian Exchange, living through the journey of someone caught up in it &mdash; complete with sharp turns and severe shaking to mimic falling ill.</p>
+            <div class="why"><b>Historical Connection</b>The Columbian Exchange moved crops, animals, people, and devastating diseases between hemispheres. The ride's physical motion dramatizes both the upheaval and the sickness that came with it.</div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tight">
+    <div class="wrap grid cols-2">
+      <div class="card info-card reveal">
+        <h4>Getting Around</h4>
+        <p class="hist">Because this era is defined by the sea, the Land transports guests by <b>ship</b>. Travelers choose between a <b>caravel</b> or a <b>carrack</b> to sail to the rest of the park &mdash; the very vessels that powered European exploration.</p>
+        <a class="land-link" href="#/transportation">See all transport routes &rarr;</a>
+      </div>
+      <div class="card info-card reveal">
+        <h4>Land Mascot &mdash; Columbus the Shark</h4>
+        <p class="hist">A fast, water-dwelling shark that nods to Christopher Columbus and the transoceanic connections of the Columbian Exchange. The shark fits the Land's water theme while marking it as a place of bold ocean voyages.</p>
+        <a class="land-link" href="#/mascots">Meet all the mascots &rarr;</a>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ============================================================
+     PAGE: FACTORYLAND  (Land 3)
+     ============================================================ -->
+<section class="page" data-page="factoryland" style="--accent:#6b4f2b; --accent-2:#b07d2b;">
+  <div class="land-banner" style="background:linear-gradient(135deg,#241c12,#4a3a27 65%,#6b4f2b);">
+    <div class="wrap">
+      <span class="badge reveal">Land Three</span>
+      <h2 class="reveal">FactoryLand</h2>
+      <div class="era-big reveal">1750 &ndash; 1900 CE &middot; The Industrial Revolution</div>
+    </div>
+  </div>
+
+  <section class="block">
+    <div class="wrap grid cols-2" style="align-items:start;">
+      <div class="reveal">
+        <div class="eyebrow">Why This Era</div>
+        <h3 class="section-title" style="font-size:2rem;">The Engines of Industry</h3>
+        <div class="rule"></div>
+        <p>We chose 1750&ndash;1900 CE because of how rapidly <b>industrialization</b> spread across Western Europe. Abundant agricultural resources, growing trade markets from the previous era, and a wave of technological innovation allowed the <b>Industrial Revolution</b> to ignite &mdash; specifically in Britain &mdash; before diffusing across Western Europe and out into the rest of the world.</p>
+      </div>
+      <div class="card info-card reveal">
+        <div class="eyebrow" style="color:var(--accent);">The Vibe</div>
+        <h4 style="margin-top:6px;">Life on the Factory Floor</h4>
+        <p class="hist">FactoryLand centers on the social and economic realities of working life. Rides built around factories and machinery fill the Land, alongside attractions that show what it was like to live as a British family during this period &mdash; the good and the harsh alike.</p>
+        <div style="margin-top:12px;">
+          <span class="chip">Factories</span><span class="chip">Steam Power</span><span class="chip">Worker Life</span><span class="chip">Machinery</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tight">
+    <div class="wrap">
+      <div class="eyebrow reveal">The Attractions</div>
+      <h3 class="section-title reveal" style="font-size:2rem;">Rides &amp; Shows</h3>
+      <div class="rule reveal"></div>
+      <div class="accordion reveal" data-accordion>
+        <div class="acc-item">
+          <button class="acc-head"><span class="acc-num">1</span> Factory Fun <span class="acc-tag">Drop ride</span> <span class="acc-chev">&#9662;</span></button>
+          <div class="acc-panel"><div class="acc-inner">
+            <p>Riders enter to "greet the boss," then climb upward past displays of the different jobs available to different skill sets &mdash; showing how <b>specialized labor</b> worked &mdash; before a fast drop surrounded by props depicting the occasional workplace injury.</p>
+            <div class="why"><b>Historical Connection</b>The division of labor powered factory productivity, but industrial jobs were also dangerous. The ride captures both the structure of specialized work and the real hazards workers faced.</div>
+          </div></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-head"><span class="acc-num">2</span> The Worker's House <span class="acc-tag">Themed restaurant</span> <span class="acc-chev">&#9662;</span></button>
+          <div class="acc-panel"><div class="acc-inner">
+            <p>A restaurant modeled on the kind of house factory workers and their families lived in. The main hall is a recreation of a massive dining room seating dozens of groups at once, surrounded by decor depicting the era's cramped, inadequate living conditions.</p>
+            <div class="why"><b>Historical Connection</b>Rapid urbanization crowded workers into poor housing. The attraction lets guests dine inside a reconstruction of those conditions.</div>
+          </div></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-head"><span class="acc-num">3</span> The Travelling Circus <span class="acc-tag">Live show</span> <span class="acc-chev">&#9662;</span></button>
+          <div class="acc-panel"><div class="acc-inner">
+            <p>A circus featuring showcases of bravery and comedy throughout its performances.</p>
+            <div class="why"><b>Historical Connection</b>Travelling circuses grew increasingly common in this period as popular entertainment &mdash; and were highly profitable &mdash; making them an authentic addition to industrial-era leisure.</div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tight">
+    <div class="wrap grid cols-2">
+      <div class="card info-card reveal">
+        <h4>Getting Around</h4>
+        <p class="hist">FactoryLand moves guests by <b>steam locomotive</b>. As fossil fuels became the dominant energy source and James Watt's improved steam engine made rail possible, the locomotive became the era's great long-distance transport &mdash; now carrying guests across the park.</p>
+        <a class="land-link" href="#/transportation">See all transport routes &rarr;</a>
+      </div>
+      <div class="card info-card reveal">
+        <h4>Land Mascot &mdash; Chuck the Chimney</h4>
+        <p class="hist">A friendly factory chimney. As steam-powered technology spread, chimneys multiplied across the industrial landscape to release steam and smoke into the air &mdash; making a chimney the most fitting symbol of FactoryLand.</p>
+        <a class="land-link" href="#/mascots">Meet all the mascots &rarr;</a>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ============================================================
+     PAGE: TRANSPORTATION
+     ============================================================ -->
+<section class="page" data-page="transportation">
+  <div class="land-banner" style="background:radial-gradient(ellipse at 50% -20%, rgba(184,138,43,.3), transparent 60%), linear-gradient(135deg,#2c2114,#4a3320);">
+    <div class="wrap">
+      <span class="badge reveal">Connecting the Lands</span>
+      <h2 class="reveal">Transportation</h2>
+      <div class="era-big reveal">How Guests Travel Through Time</div>
+    </div>
+  </div>
+  <section class="block">
+    <div class="wrap">
+      <p class="lead reveal" style="margin-bottom:30px;">Beyond walking paths, each Land connects to the rest of Chronicles of Europe using a mode of transport drawn directly from its own era. Guests literally ride through history as they move from one Land to the next.</p>
+      <div class="grid cols-3">
+        <div class="card info-card reveal" style="--accent:#7a2018;">
+          <h4>
+            <svg class="icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="25" r="4"/><circle cx="23" cy="25" r="4"/><path d="M4 18h18l4-6H8z"/></svg>
+            Horse-drawn Carriage
+          </h4>
+          <div class="chip">Castleonia &middot; 1200&ndash;1450</div>
+          <p class="hist">Carriages pulled by horses carried people across medieval Western Europe. Guests can also push <b>merchant carts</b>, echoing the traders who hauled goods between towns and markets.</p>
+        </div>
+        <div class="card info-card reveal" style="--accent:#14606b;">
+          <h4>
+            <svg class="icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 22h22l-3 5H8z"/><path d="M16 4v18M16 6l9 6H16M16 9l-7 5h7"/></svg>
+            Caravel &amp; Carrack
+          </h4>
+          <div class="chip">Exploration Kingdom &middot; 1450&ndash;1750</div>
+          <p class="hist">In a Land built on the sea, guests sail between areas aboard a <b>caravel</b> or <b>carrack</b> &mdash; choosing their own vessel. These were the ships of European exploration and transoceanic trade.</p>
+        </div>
+        <div class="card info-card reveal" style="--accent:#6b4f2b;">
+          <h4>
+            <svg class="icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="8" width="20" height="14" rx="2"/><circle cx="11" cy="26" r="2.5"/><circle cx="21" cy="26" r="2.5"/><path d="M20 4h4v4"/></svg>
+            Steam Locomotive
+          </h4>
+          <div class="chip">FactoryLand &middot; 1750&ndash;1900</div>
+          <p class="hist">The steam locomotive &mdash; born from fossil fuels and James Watt's steam engine &mdash; was the era's dominant long-distance transport. It carries guests across the longest stretches of the park.</p>
+        </div>
+      </div>
+      <div class="card reveal" style="margin-top:30px; padding:24px 26px;">
+        <div class="eyebrow" style="color:var(--burgundy);">A Bigger Picture</div>
+        <p style="margin-top:8px;">Transportation in Chronicles of Europe mirrors a true historical arc: from the <b>animal-powered</b> movement of the medieval world, to the <b>wind-powered</b> ships of the age of sail, to the <b>fossil-fueled</b> engines of industry. Crossing the park is itself a lesson in how Western Europe's movement of people and goods transformed over seven centuries.</p>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ============================================================
+     PAGE: FOOD COURT
+     ============================================================ -->
+<section class="page" data-page="food">
+  <div class="land-banner" style="background:radial-gradient(ellipse at 50% -20%, rgba(184,138,43,.3), transparent 60%), linear-gradient(135deg,#4a2b16,#7a4a1e);">
+    <div class="wrap">
+      <span class="badge reveal">Taste the Region</span>
+      <h2 class="reveal">The Global Food Court</h2>
+      <div class="era-big reveal">Six Stands &middot; Seven Centuries of Cuisine</div>
+    </div>
+  </div>
+  <section class="block">
+    <div class="wrap">
+      <p class="lead reveal" style="margin-bottom:30px;">Chronicles of Europe's food court traces how the Western European diet changed across our three eras &mdash; from hearty medieval fare, to the New World crops of the Columbian Exchange, to the preserved and imported foods of the industrial age.</p>
+      <div class="grid cols-3" id="foodGrid"></div>
+    </div>
+  </section>
+</section>
+
+<!-- ============================================================
+     PAGE: GIFT SHOP
+     ============================================================ -->
+<section class="page" data-page="giftshop">
+  <div class="land-banner" style="background:radial-gradient(ellipse at 50% -20%, rgba(184,138,43,.3), transparent 60%), linear-gradient(135deg,#2c2114,#5a1610);">
+    <div class="wrap">
+      <span class="badge reveal">Take History Home</span>
+      <h2 class="reveal">The Gift Shop</h2>
+      <div class="era-big reveal">Souvenirs From Every Era</div>
+    </div>
+  </div>
+  <section class="block">
+    <div class="wrap">
+      <p class="lead reveal" style="margin-bottom:30px;">Every souvenir in Chronicles of Europe is tied to the history of its Land. Browse keepsakes from the medieval kingdom, the age of sail, and the industrial revolution &mdash; each chosen because it reflects the technology, culture, or warfare of its era.</p>
+      <div class="grid cols-3" id="giftGrid"></div>
+    </div>
+  </section>
+</section>
+
+<!-- ============================================================
+     PAGE: MASCOTS
+     ============================================================ -->
+<section class="page" data-page="mascots">
+  <div class="land-banner" style="background:radial-gradient(ellipse at 50% -20%, rgba(184,138,43,.35), transparent 60%), linear-gradient(135deg,#2c2114,#4a3320);">
+    <div class="wrap">
+      <span class="badge reveal">The Faces of the Park</span>
+      <h2 class="reveal">Mascots</h2>
+      <div class="era-big reveal">One Crown &middot; Three Champions</div>
+    </div>
+  </div>
+  <section class="block">
+    <div class="wrap">
+      <div class="eyebrow reveal">The Overall Mascot</div>
+      <h3 class="section-title reveal" style="font-size:2rem;">The King</h3>
+      <div class="rule reveal"></div>
+      <div class="card reveal" style="padding:30px; margin-bottom:40px;">
+        <div class="mascot-top">
+          <div class="mascot-emblem" style="--accent:#b88a2b;">
+            <svg viewBox="0 0 64 64"><path d="M10 44h44l-3 10H13z" fill="#b88a2b" stroke="#8a6418" stroke-width="2"/><path d="M10 44 7 24l13 10 12-20 12 20 13-10-3 20z" fill="#e3c87a" stroke="#8a6418" stroke-width="2"/><circle cx="7" cy="22" r="3.5" fill="#7a2018"/><circle cx="57" cy="22" r="3.5" fill="#7a2018"/><circle cx="32" cy="11" r="3.5" fill="#7a2018"/></svg>
+          </div>
+          <div>
+            <div class="role">Park-wide Mascot</div>
+            <h4>The King</h4>
+          </div>
+        </div>
+        <p style="margin-top:16px; color:var(--ink-soft);">A crowned king who roams all three Lands. Kings were a constant across every era of Western European history, symbolizing <b>power and status</b> from the medieval monarchies through the imperial age. Because royal authority threads through all three time periods our park covers, the King unites the entire park as its overall mascot.</p>
+      </div>
+
+      <div class="eyebrow reveal">The Land Mascots</div>
+      <h3 class="section-title reveal" style="font-size:2rem;">A Champion for Each Land</h3>
+      <div class="rule reveal"></div>
+      <p class="reveal" style="color:var(--ink-soft); margin-bottom:24px;">Tap any mascot to read the full historical reasoning.</p>
+      <div class="grid mascot-grid" id="mascotGrid"></div>
+    </div>
+  </section>
+</section>
+
+<!-- ============================================================
+     PAGE: HISTORICAL CONTEXT (Research Deep-Dive)
+     ============================================================ -->
+<section class="page" data-page="history">
+  <div class="land-banner" style="background:radial-gradient(ellipse at 50% -20%, rgba(184,138,43,.3), transparent 60%), linear-gradient(135deg,#1d2b22,#2f4a36);">
+    <div class="wrap">
+      <span class="badge reveal">Research Deep-Dive</span>
+      <h2 class="reveal">Historical Context</h2>
+      <div class="era-big reveal">Western Europe &middot; 1200&ndash;1900 CE</div>
+    </div>
+  </div>
+  <section class="block">
+    <div class="wrap">
+      <p class="lead reveal" style="margin-bottom:30px;">Before designing the park, we researched three questions across our three eras. These comparisons are the historical backbone behind every Land, attraction, and souvenir in Chronicles of Europe.</p>
+
+      <!-- Q1 -->
+      <div class="reveal" style="margin-bottom:36px;">
+        <h3 class="section-title" style="font-size:1.7rem;">Who Is In Charge?</h3>
+        <p style="color:var(--ink-soft); margin-bottom:14px;">Government, political systems, and leadership.</p>
+        <table class="compare">
+          <tr><th>Era</th><th>Who Holds Power</th></tr>
+          <tr><td><b>1200&ndash;1450</b></td><td>The Catholic Church and the Pope held both religious and political power across Europe. Feudal lords and nobility ruled small parcels of land called manors.</td></tr>
+          <tr><td><b>1450&ndash;1750</b></td><td>A range of monarchies and empires &mdash; the Spanish Empire, the Kingdom of France, the Kingdom of England, and the Dutch Republic.</td></tr>
+          <tr><td><b>1750&ndash;1900</b></td><td>The British Empire, French Empire, German Empire, and Russian Empire.</td></tr>
+        </table>
+        <p style="margin-top:12px; font-style:italic; color:var(--ink-soft);"><b>Change &amp; continuity:</b> Authority shifted from the decentralized Church-and-manor system toward large centralized empires &mdash; yet imperialism and empire-building remained a constant feature throughout.</p>
+      </div>
+
+      <!-- Q2 -->
+      <div class="reveal" style="margin-bottom:36px;">
+        <h3 class="section-title" style="font-size:1.7rem;">Who Is Working?</h3>
+        <p style="color:var(--ink-soft); margin-bottom:14px;">Labor systems, social classes, and the economy.</p>
+        <table class="compare">
+          <tr><th>Era</th><th>The Workforce</th></tr>
+          <tr><td><b>1200&ndash;1450</b></td><td>Rural workers &mdash; serfs, freemen, and enslaved people.</td></tr>
+          <tr><td><b>1450&ndash;1750</b></td><td>Still largely serfs and freemen, but artisanal workers began to emerge.</td></tr>
+          <tr><td><b>1750&ndash;1900</b></td><td>A massive shift from agricultural workers and artisans to industrial laborers in factory jobs &mdash; with some forced labor remaining.</td></tr>
+        </table>
+        <p style="margin-top:12px; font-style:italic; color:var(--ink-soft);"><b>Change &amp; continuity:</b> The economy moved from agricultural production toward industrial production, but forced labor continued to make up a significant share of the workforce across the eras.</p>
+      </div>
+
+      <!-- Q3 -->
+      <div class="reveal">
+        <h3 class="section-title" style="font-size:1.7rem;">What Is Moving?</h3>
+        <p style="color:var(--ink-soft); margin-bottom:14px;">Trade, belief systems, people, and ideas.</p>
+        <table class="compare">
+          <tr><th>Era</th><th>What Crosses Borders</th></tr>
+          <tr><td><b>1200&ndash;1450</b></td><td>Goods moved mainly through Hanseatic League trade networks. Christianity spread across Western Europe, and the Crusades moved people, ideas, and technology across Eurasia.</td></tr>
+          <tr><td><b>1450&ndash;1750</b></td><td>The Columbian Exchange moved animals, food, and diseases from the Old World to the New. The printing press spread ideas rapidly.</td></tr>
+          <tr><td><b>1750&ndash;1900</b></td><td>The Industrial Revolution spread quickly across Western Europe. Mass migration to the Americas began, and ideas such as communism and capitalism emerged.</td></tr>
+        </table>
+        <p style="margin-top:12px; font-style:italic; color:var(--ink-soft);"><b>Change &amp; continuity:</b> New technologies like steam ships and the astrolabe enabled the Age of Exploration and the discovery of the Americas &mdash; while regional trade within Europe and imperial demand for raw materials remained constant.</p>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ============================================================
+     PAGE: SOURCES
+     ============================================================ -->
+<section class="page" data-page="sources">
+  <div class="land-banner" style="background:radial-gradient(ellipse at 50% -20%, rgba(184,138,43,.3), transparent 60%), linear-gradient(135deg,#2c2114,#3a2a18);">
+    <div class="wrap">
+      <span class="badge reveal">Works Cited</span>
+      <h2 class="reveal">Sources</h2>
+      <div class="era-big reveal">Our Research Trail</div>
+    </div>
+  </div>
+  <section class="block">
+    <div class="wrap" style="max-width:780px;">
+      <p class="lead reveal" style="margin-bottom:30px;">The websites and resources we consulted while researching Western Europe and designing Chronicles of Europe.</p>
+      <ul class="src-list reveal" id="sourceList"></ul>
+    </div>
+  </section>
+</section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER (persistent)
+     ============================================================ -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <span class="brand-txt"><b style="font-family:var(--deco); color:var(--gold-light);">Chronicles of Europe</b></span>
+        <p style="margin-top:12px;">A regionally-themed historical amusement park exploring Western Europe across three eras &mdash; from the medieval manor to the industrial factory floor.</p>
+        <p style="margin-top:14px; color:var(--gold-light);">Sai Bhimavarapu &middot; Sriram Balguri &middot; Dhrupad Kaki &mdash; Block 5</p>
+      </div>
+      <div>
+        <h5>The Lands</h5>
+        <a href="#/castleonia">Castleonia &middot; 1200&ndash;1450</a>
+        <a href="#/exploration">Exploration Kingdom &middot; 1450&ndash;1750</a>
+        <a href="#/factoryland">FactoryLand &middot; 1750&ndash;1900</a>
+        <a href="#/map">Park Map</a>
+      </div>
+      <div>
+        <h5>Explore</h5>
+        <a href="#/transportation">Transportation</a>
+        <a href="#/food">Food Court</a>
+        <a href="#/giftshop">Gift Shop</a>
+        <a href="#/mascots">Mascots</a>
+        <a href="#/history">Historical Context</a>
+        <a href="#/sources">Sources</a>
+      </div>
+    </div>
+    <div class="foot-bottom">AP World History Project &middot; A Journey Through Time &middot; &copy; Chronicles of Europe</div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     MODAL (single reusable element for mascots)
+     ============================================================ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <div class="modal-head">
+      <div class="mascot-emblem" id="modalEmblem"></div>
+      <div>
+        <div class="role" id="modalRole"></div>
+        <h3 id="modalTitle"></h3>
+      </div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   DATA  (all content sourced from the project documents)
+   ============================================================ */
+
+// ---- Mascot SVG icon builders (original, simple emblems) ----
+const ICONS = {
+  king: `<svg viewBox="0 0 64 64"><path d="M12 42h40l-3 10H15z" fill="#b88a2b" stroke="#8a6418" stroke-width="2"/><path d="M12 42 9 24l12 9 11-18 11 18 12-9-3 18z" fill="#e3c87a" stroke="#8a6418" stroke-width="2"/><circle cx="9" cy="22" r="3" fill="#7a2018"/><circle cx="55" cy="22" r="3" fill="#7a2018"/><circle cx="32" cy="12" r="3" fill="#7a2018"/></svg>`,
+  knight: `<svg viewBox="0 0 64 64"><path d="M32 8c-9 0-15 6-15 16v6c0 11 7 20 15 24 8-4 15-13 15-24v-6c0-10-6-16-15-16z" fill="#cfd3d6" stroke="#7a808a" stroke-width="2"/><rect x="22" y="24" width="20" height="5" rx="2" fill="#3a3f45"/><path d="M30 32h4v10h-4z" fill="#3a3f45"/><path d="M27 36h10" stroke="#3a3f45" stroke-width="2"/></svg>`,
+  shark: `<svg viewBox="0 0 64 64"><path d="M6 38c10-14 28-18 44-12-4 4-6 8-6 8s8 0 12 4c-6 3-12 3-12 3s2 5 0 9c-5-3-9-7-9-7-9 4-20 2-29-4z" fill="#3f6f78" stroke="#14606b" stroke-width="2"/><path d="M30 16l8 12-14 0z" fill="#14606b"/><circle cx="16" cy="34" r="2" fill="#fff"/></svg>`,
+  chimney: `<svg viewBox="0 0 64 64"><rect x="24" y="22" width="16" height="34" fill="#7a4a2a" stroke="#4a2c16" stroke-width="2"/><rect x="22" y="18" width="20" height="7" fill="#9c5f34" stroke="#4a2c16" stroke-width="2"/><path d="M30 18c0-5 6-5 6-10M36 18c2-4 6-3 6-8" fill="none" stroke="#b9b2a6" stroke-width="3" stroke-linecap="round" opacity=".8"/><rect x="26" y="30" width="4" height="4" fill="#4a2c16"/><rect x="34" y="38" width="4" height="4" fill="#4a2c16"/></svg>`
+};
+
+const LANDS = [
+  { id:'castleonia', name:'Castleonia', era:'1200 – 1450 CE', color:'#7a2018',
+    blurb:'A medieval European kingdom of stone castles, cathedrals, and a working manor — built on feudalism, faith, and the legacy of the Black Death.',
+    icon:`<svg viewBox="0 0 64 64" fill="#fff"><rect x="14" y="26" width="36" height="22"/><rect x="14" y="18" width="6" height="10"/><rect x="24" y="18" width="6" height="10"/><rect x="34" y="18" width="6" height="10"/><rect x="44" y="18" width="6" height="10"/><rect x="28" y="34" width="8" height="14" fill="#5a1610"/></svg>` },
+  { id:'exploration', name:'Exploration Kingdom', era:'1450 – 1750 CE', color:'#14606b',
+    blurb:'An ocean of trade, tall ships, and new inventions — celebrating the Age of Exploration, the Columbian Exchange, and mercantilist empires.',
+    icon:`<svg viewBox="0 0 64 64" fill="#fff"><path d="M12 40h40l-7 12H19z"/><rect x="30" y="10" width="4" height="32"/><path d="M34 12l18 14H34z"/><path d="M30 16L14 30h16z"/></svg>` },
+  { id:'factoryland', name:'FactoryLand', era:'1750 – 1900 CE', color:'#6b4f2b',
+    blurb:'The roar of the Industrial Revolution — factories, machinery, steam power, and the hard realities of working-class life in Britain and beyond.',
+    icon:`<svg viewBox="0 0 64 64" fill="#fff"><rect x="10" y="30" width="44" height="20"/><path d="M10 30V18l11 7v-7l11 7v-7l11 7v5z"/><rect x="40" y="10" width="7" height="20"/></svg>` }
+];
+
+// Food court: at least 4 stands (we offer 6), drawn from each era's cuisine
+const FOOD = [
+  { name:'The Manor Table', era:'Castleonia · 1200–1450', accent:'#7a2018',
+    items:['Roasted chicken','Meat pies','Bread bowls','Hearty soup','Aged cheese'],
+    hist:'Hearty roasted meats, meat pies, bread, soup, and cheese reflect the common medieval Western European diet of the manorial era.' },
+  { name:'New World Harvest', era:'Exploration Kingdom · 1450–1750', accent:'#14606b',
+    items:['Potato dishes','Corn','Tomato dishes','Turkey'],
+    hist:'Potatoes, corn, tomatoes, and turkey were all brought to Western Europe through the Columbian Exchange, transforming the regional diet.' },
+  { name:'The Cacao Cart', era:'Exploration Kingdom · 1450–1750', accent:'#14606b',
+    items:['Hot chocolate','Chocolate desserts'],
+    hist:'Cacao arrived from the Americas during the Columbian Exchange, introducing chocolate as a prized new treat across Europe.' },
+  { name:'Worker\'s Hearth', era:'FactoryLand · 1750–1900', accent:'#6b4f2b',
+    items:['Potato plates','Maize dishes','Tomato dishes'],
+    hist:'Industrial-era meals built on potatoes, maize, and tomatoes — New World staples that had spread into the diets of Western Europe\'s working population.' },
+  { name:'The Preserved Larder', era:'FactoryLand · 1750–1900', accent:'#6b4f2b',
+    items:['Preserved meats','Cured provisions'],
+    hist:'New methods of preserving meat allowed imported foods to travel across the culturally distinct states of Western Europe and enter everyday diets.' },
+  { name:'Hanseatic Market Stall', era:'Castleonia · 1200–1450', accent:'#7a2018',
+    items:['Trade-route breads','Market cheeses','Salted goods'],
+    hist:'A medieval market stand echoing the Hanseatic League trade networks that moved goods across northern Europe in the 1200–1450 era.' }
+];
+
+// Gift shop: at least 5 souvenirs (we offer many) grouped by Land
+const GIFTS = [
+  { name:'Knight\'s Sword & Shield', era:'Castleonia', accent:'#7a2018', hist:'Reflects medieval warfare and the culture of knighthood central to 1200–1450 Western Europe.' },
+  { name:'Medieval Jewelry', era:'Castleonia', accent:'#7a2018', hist:'Captures the adornment and craft of the medieval period.' },
+  { name:'Knight\'s Helmet (Armor)', era:'Castleonia', accent:'#7a2018', hist:'Represents the armored knights who embodied feudal loyalty and chivalry.' },
+  { name:'Medieval Banner', era:'Castleonia', accent:'#7a2018', hist:'Heraldic banners marked allegiance to lords and kingdoms in the feudal age.' },
+  { name:'Mariner\'s Compass', era:'Exploration Kingdom', accent:'#14606b', hist:'A key navigation tool that made transoceanic voyages possible.' },
+  { name:'Model Ship', era:'Exploration Kingdom', accent:'#14606b', hist:'Miniature caravels and carracks honor the vessels of European exploration.' },
+  { name:'Astrolabe', era:'Exploration Kingdom', accent:'#14606b', hist:'Used to determine latitude at sea — essential maritime technology of the era.' },
+  { name:'Lateen Sail', era:'Exploration Kingdom', accent:'#14606b', hist:'The triangular sail that gave exploration ships their maneuverability.' },
+  { name:'Columbian Exchange Goods', era:'Exploration Kingdom', accent:'#14606b', hist:'Sample crops and items that crossed the Atlantic during the exchange.' },
+  { name:'Pocket Watch', era:'FactoryLand', accent:'#6b4f2b', hist:'Mechanical timekeeping reflects the precision technology of the industrial age.' },
+  { name:'Train Figurine', era:'FactoryLand', accent:'#6b4f2b', hist:'Celebrates the steam locomotive, the era\'s transportation breakthrough.' },
+  { name:'Inked Printing Stamp', era:'FactoryLand', accent:'#6b4f2b', hist:'Honors the continued development of the printing press and the spread of ideas.' },
+  { name:'Fountain Pen & Ink', era:'FactoryLand', accent:'#6b4f2b', hist:'A new writing technology of the period, paired with ink for the modern writer.' }
+];
+
+const MASCOTS = [
+  { id:'knight', name:'Sir Arthur the Knight', role:'Castleonia · 1200–1450', accent:'#7a2018',
+    text:'A friendly knight in shining armor carrying a sword and shield. Knights were among the most iconic figures of medieval Western Europe, embodying feudalism, loyalty, and chivalry. Because of their popularity and symbolic weight, Sir Arthur fits the historical setting of Castleonia perfectly.' },
+  { id:'shark', name:'Columbus the Shark', role:'Exploration Kingdom · 1450–1750', accent:'#14606b',
+    text:'A fast, water-dwelling shark symbolizing Christopher Columbus, a central figure in transoceanic connections and the Columbian Exchange. As a swift ocean animal, the shark matches the Land\'s water theme while marking it as a place of bold sea voyages.' },
+  { id:'chimney', name:'Chuck the Chimney', role:'FactoryLand · 1750–1900', accent:'#6b4f2b',
+    text:'A friendly factory chimney. As steam-powered technology spread, chimneys multiplied across Western Europe to release steam and smoke into the air. That makes a chimney the most fitting symbol of FactoryLand and the Industrial Revolution.' }
+];
+
+const SOURCES = [
+  { type:'Website', url:'https://www.history.com/topics/middle-ages' },
+  { type:'Website', url:'https://www.britannica.com/topic/history-of-Europe/The-Middle-Ages' },
+  { type:'Website', url:'https://www.nationalgeographic.com/history/article/what-life-in-medieval-europe-was-really-like' },
+  { type:'Website', url:'https://www.britannica.com/technology/history-of-technology/The-emergence-of-Western-technology-1500-1750' },
+  { type:'Website', url:'https://www.history.ox.ac.uk/european-and-world-history-fhs' },
+  { type:'Website', url:'https://www.freeman-pedia.com/modern-period-1750-1900' },
+  { type:'Website', url:'https://www.freeman-pedia.com/3-land-based-empires-14501750' },
+  { type:'Video Resource', url:'Heimler\'s History — Unit 1.6' },
+  { type:'Video Resource', url:'Heimler\'s History — Unit 6.2' }
+];
+
+/* ============================================================
+   RENDER  (build repeating content from data)
+   ============================================================ */
+
+// Home land cards
+document.getElementById('homeLands').innerHTML = LANDS.map(l => `
+  <a class="card land-card" href="#/${l.id}" style="--accent:${l.color}; --accent-2:${l.color};">
+    <div class="land-art" style="background:linear-gradient(135deg, ${l.color}, ${l.color}cc);">${l.icon}</div>
+    <div class="land-body">
+      <span class="era">${l.era}</span>
+      <h3>${l.name}</h3>
+      <p>${l.blurb}</p>
+      <span class="land-link">Enter this Land &rarr;</span>
+    </div>
+  </a>`).join('');
+
+// Food court
+document.getElementById('foodGrid').innerHTML = FOOD.map(f => `
+  <div class="card info-card reveal" style="--accent:${f.accent};">
+    <h4>${f.name}</h4>
+    <div class="chip">${f.era}</div>
+    <div style="margin:10px 0;">${f.items.map(i=>`<span class="chip">${i}</span>`).join('')}</div>
+    <p class="hist">${f.hist}</p>
+  </div>`).join('');
+
+// Gift shop
+document.getElementById('giftGrid').innerHTML = GIFTS.map(g => `
+  <div class="card info-card reveal" style="--accent:${g.accent};">
+    <h4 style="font-size:1.08rem;">${g.name}</h4>
+    <div class="chip">${g.era}</div>
+    <p class="hist">${g.hist}</p>
+  </div>`).join('');
+
+// Mascots
+document.getElementById('mascotGrid').innerHTML = MASCOTS.map(m => `
+  <div class="card mascot-card reveal" style="--accent:${m.accent};" data-mascot="${m.id}">
+    <div class="mascot-top">
+      <div class="mascot-emblem">${ICONS[m.id]}</div>
+      <div>
+        <div class="role">${m.role}</div>
+        <h4>${m.name}</h4>
+      </div>
+    </div>
+    <p>${m.text.slice(0,120)}… <span style="color:var(--accent); font-family:var(--display); font-weight:600;">Read more</span></p>
+  </div>`).join('');
+
+// Sources
+document.getElementById('sourceList').innerHTML = SOURCES.map(s => {
+  const isUrl = s.url.startsWith('http');
+  const inner = isUrl ? `<a href="${s.url}" target="_blank" rel="noopener">${s.url}</a>` : s.url;
+  return `<li><span>${s.type}</span>${inner}</li>`;
+}).join('');
+
+/* ============================================================
+   ROUTER  (hash-based, file-style routes — works with no server)
+   ============================================================ */
+const pages = document.querySelectorAll('.page');
+const navAnchors = document.querySelectorAll('.navlinks a');
+
+function route(){
+  // parse "#/something" -> "something"; default to home
+  let id = (location.hash.replace(/^#\/?/, '') || 'home').toLowerCase();
+  if(![...pages].some(p => p.dataset.page === id)) id = 'home';
+
+  pages.forEach(p => p.classList.toggle('active', p.dataset.page === id));
+  navAnchors.forEach(a => a.classList.toggle('active', a.dataset.route === id));
+
+  // close mobile menu + scroll to top on navigation
+  document.getElementById('navlinks').classList.remove('open');
+  window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' });
+  document.title = (id==='home' ? 'Chronicles of Europe — A Journey Through Time' :
+    id.charAt(0).toUpperCase()+id.slice(1) + ' · Chronicles of Europe');
+}
+window.addEventListener('hashchange', route);
+window.addEventListener('DOMContentLoaded', route);
+route(); // initial
+
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+document.getElementById('menuBtn').addEventListener('click', () => {
+  document.getElementById('navlinks').classList.toggle('open');
+});
+
+/* ============================================================
+   ACCORDIONS  (event delegation; one-open-at-a-time per group)
+   ============================================================ */
+document.querySelectorAll('[data-accordion]').forEach(acc => {
+  acc.addEventListener('click', e => {
+    const head = e.target.closest('.acc-head');
+    if(!head) return;
+    const item = head.parentElement;
+    const wasOpen = item.classList.contains('open');
+    acc.querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
+    if(!wasOpen) item.classList.add('open');
+  });
+});
+
+/* ============================================================
+   MASCOT MODAL
+   ============================================================ */
+const overlay = document.getElementById('modalOverlay');
+function openMascot(id){
+  const m = MASCOTS.find(x => x.id === id);
+  if(!m) return;
+  document.getElementById('modalEmblem').innerHTML = ICONS[m.id];
+  document.getElementById('modalEmblem').style.setProperty('--accent', m.accent);
+  document.getElementById('modalRole').textContent = m.role;
+  document.getElementById('modalTitle').textContent = m.name;
+  document.getElementById('modalBody').innerHTML = `<p>${m.text}</p>`;
+  document.querySelector('.modal').style.setProperty('--accent', m.accent);
+  document.querySelector('.modal').style.setProperty('--accent-2', m.accent);
+  overlay.classList.add('open');
+}
+document.getElementById('mascotGrid').addEventListener('click', e => {
+  const card = e.target.closest('[data-mascot]');
+  if(card) openMascot(card.dataset.mascot);
+});
+function closeModal(){ overlay.classList.remove('open'); }
+document.getElementById('modalClose').addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if(e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
